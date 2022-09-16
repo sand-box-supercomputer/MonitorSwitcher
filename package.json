@@ -1,0 +1,17 @@
+{
+  "name": "monitorswitcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "nexe index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nexe": "^4.0.0-rc.1",
+    "node-cmd": "^5.0.0"
+  }
+}
