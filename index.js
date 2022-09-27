@@ -10,7 +10,7 @@ function setMonitorToComputer(computerId) {
 const nodeCmd = require('node-cmd');
 const express = require('express')
 const app = express()
-const port = 65100
+const port = 444
 
 app.post(`/switchToComputer/:id/${API_KEY}`, (req, res) => {
     let id = req.params.id
