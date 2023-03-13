@@ -14,8 +14,8 @@ const MONITOR_MODES = {
     HDMI1: "17",
     HDMI2: "18",
 }
-const ASUS_PG32UQ = "Secondary"
-const LENOVO_L32P30 = "Primary"
+const ASUS_PG32UQ = "Primary"
+const LENOVO_L32P30 = "Secondary"
 const CONTROL_MY_MONITOR_EXE = `D:\\_Work\\ControlMyMonitor\\ControlMyMonitor.exe`
 
 const SET_MONITOR_TO = {
@@ -36,8 +36,8 @@ function setMonitorToPc() {
 function setMonitorToLaptop() {
     console.log("Set monitor to laptop.")
     return [
-        nodeCmd.runSync(`${CONTROL_MY_MONITOR_EXE} /SetValueIfNeeded ${ASUS_PG32UQ} 60 ${MONITOR_MODES.HDMI1}`),
-        nodeCmd.runSync(`${CONTROL_MY_MONITOR_EXE} /SetValueIfNeeded ${LENOVO_L32P30} 60 ${MONITOR_MODES.HDMI2}`),
+        nodeCmd.runSync(`${CONTROL_MY_MONITOR_EXE} /SetValueIfNeeded ${ASUS_PG32UQ} 60 ${MONITOR_MODES.HDMI2}`),
+        nodeCmd.runSync(`${CONTROL_MY_MONITOR_EXE} /SetValueIfNeeded ${LENOVO_L32P30} 60 ${MONITOR_MODES.HDMI1}`),
     ]
 }
 
