@@ -149,7 +149,7 @@ app.get('/presets', (req, res) => {
 
 app.post('/presets/:preset/activate', (req, res) => {
   const { preset } = req.params;
-  presets[presetName]();
+  presets[preset]();
   res.send(monitors)
 })
 

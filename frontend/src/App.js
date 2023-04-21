@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import Monitor from './components/Monitor';
 import axios from "axios"
 import Button from './components/Button';
 import BooleanSetting from './components/BooleanSettings';
 
-const BACKEND_URL = "http://192.168.0.195:3443"
+const BACKEND_URL = "http://pqhuy.ddns.net:3443"
 
 export default function App() {
   /**
@@ -84,6 +83,7 @@ export default function App() {
             Object.keys(generalSettings).map(settingName => {
               if (typeof generalSettings[settingName] === "boolean") {
                 return <BooleanSetting
+                  key={settingName}
                   label={settingName}
                   value={generalSettings[settingName]}
                   onChange={(value) => updateGeneralSettings({ [settingName]: value })}
