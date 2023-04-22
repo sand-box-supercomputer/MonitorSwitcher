@@ -4,7 +4,7 @@ import axios from "axios"
 import Button from './components/Button';
 import BooleanSetting from './components/BooleanSettings';
 
-const BACKEND_URL = "http://pqhuy.ddns.net:3443"
+const BACKEND_URL = "http://pqhuy.ddns.net:10444"
 
 export default function App() {
   /**

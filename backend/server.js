@@ -18,7 +18,8 @@ const MacbookPro = "Macbook Pro"
 const monitors = [
   {
     monitorName: "Lenovo L32p-30",
-    monitorId: rawMonitorIds.find(id => id.includes("LEN")),
+    monitorIdKeyword: "LEN",
+    monitorId: "",
     inputs: [
       {
         computerName: MacbookPro,
@@ -35,7 +36,8 @@ const monitors = [
 
   {
     monitorName: "ASUS PG32UQ",
-    monitorId: rawMonitorIds.find(id => id.includes("AUS")),
+    monitorIdKeyword: "AUS",
+    monitorId: "",
     inputs: [
       {
         computerName: MacbookPro,
@@ -97,7 +99,11 @@ function switchInput(monitorName, portName) {
 }
 
 function fetchRealStatus() {
+  ddcci._refresh();
+  const rawMonitorIds = ddcci.getMonitorList();
+
   monitors.forEach(monitor => {
+    monitor.monitorId = rawMonitorIds.find(id => id.includes(monitor.monitorIdKeyword));
     try {
       const currentInputCode = getInputSource(monitor.monitorId);
       monitor.inputs.forEach(input => {
@@ -120,7 +126,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-const port = 3443
+const port = 10444
 
 app.get('/general-settings', (req, res) => {
   res.send(generalSettings);

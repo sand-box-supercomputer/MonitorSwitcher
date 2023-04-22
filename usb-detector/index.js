@@ -2,7 +2,7 @@ const usbDetect = require('usb-detection');
 const axios = require("axios");
 
 const USB_VID_PID = "5426:545" // vendorId and productId of the USB device used for detect switching.
-const CONTROL_SERVER_URL = "http://localhost:3443"
+const CONTROL_SERVER_URL = "http://localhost:10444"
 
 let presets = [];
 getPresets();
