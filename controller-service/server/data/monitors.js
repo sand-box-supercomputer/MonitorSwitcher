@@ -25,7 +25,7 @@ export const monitors = [
   },
 
   {
-    monitorName: "ASUS PG32UQ",
+    monitorName: "Asus PG32UQ",
     monitorIdKeyword: "AUS",
     monitorId: "",
     inputs: [
