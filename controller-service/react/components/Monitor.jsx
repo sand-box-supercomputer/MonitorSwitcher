@@ -23,10 +23,9 @@ const styles = {
   container: {
     display: "flex",
     flexDirection: "column",
-    width: 3840 / 8,
-    height: 2160 / 8,
+    aspectRatio: 16 / 9,
     border: "5px solid #888",
-    borderBottom: "15px solid #888",
+    borderBottom: "25px solid #888",
     borderRadius: "10px",
     margin: "30px",
     padding: "30px",

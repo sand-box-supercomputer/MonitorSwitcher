@@ -1,3 +1,3 @@
 pushd "%~dp0"
-cd usb-detector
+cd controller-service
 npm i & npm start
