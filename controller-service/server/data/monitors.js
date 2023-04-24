@@ -43,6 +43,8 @@ export const monitors = [
   },
 ]
 
+export const PRIMARY_MONITOR = monitors[1]
+export const SECONDARY_MONITOR = monitors[0]
 
 /**
  * Constants

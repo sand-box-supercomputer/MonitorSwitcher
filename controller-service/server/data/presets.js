@@ -5,39 +5,39 @@ function _switch(monitor, computerName) {
     switchInput(monitor.monitorName, monitor.inputs.find(input => input.computerName === computerName).portName);
 }
 
+function trigger(text, fn) {
+    return { text, fn }
+}
+
 export const presets = {
     "Single monitor per computer": {
-        "Macbook main": {
-            text: "[SuperComputer] Macbook",
-            trigger: () => {
-                _switch(monitors[0], MacbookPro);
-                _switch(monitors[1], SuperComputer);
-            }
-        },
-        "SuperComputer main": {
-            text: "[Macbook] SuperComputer",
-            trigger: () => {
-                _switch(monitors[0], SuperComputer);
-                _switch(monitors[1], MacbookPro);
-            }
-        },
+        "Macbook main":
+            trigger("[SuperComputer] Macbook", () => {
+                _switch(PRIMARY_MONITOR, SuperComputer);
+                _switch(SECONDARY_MONITOR, MacbookPro);
+            }),
+        "SuperComputer main":
+            trigger("[Macbook] SuperComputer", () => {
+                _switch(PRIMARY_MONITOR, MacbookPro);
+                _switch(SECONDARY_MONITOR, SuperComputer);
+            }),
     },
+
+
     "All monitors for main computer": {
-        "Macbook main": {
-            text: "All Macbook",
-            trigger: () => {
-                _switch(monitors[0], MacbookPro);
-                _switch(monitors[1], MacbookPro);
-            },
-        },
-        "SuperComputer main": {
-            text: "All SuperComputer",
-            trigger: () => {
-                _switch(monitors[0], SuperComputer);
-                _switch(monitors[1], SuperComputer);
-            },
-        },
+        "Macbook main":
+            trigger("All Macbook", () => {
+                _switch(PRIMARY_MONITOR, MacbookPro);
+                _switch(SECONDARY_MONITOR, MacbookPro);
+            }),
+        "SuperComputer main":
+            trigger("All SuperComputer", () => {
+                _switch(PRIMARY_MONITOR, SuperComputer);
+                _switch(SECONDARY_MONITOR, SuperComputer);
+            }),
     },
+
+
     "Do nothing": {
     }
 }
