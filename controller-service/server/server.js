@@ -53,6 +53,7 @@ server.post('/usb-switch/:keyword', (req, res) => {
 
   let key1s = Object.keys(presets[key0]);
   let key1 = key1s.find(p => p.toLowerCase().includes(keyword.toLowerCase()));
+  console.log(key0, key1)
   presets[key0][key1].trigger();
   console.log(`Activated preset[${key0}][${key1}].`)
   res.send(`Activated preset[${key0}][${key1}].`);
