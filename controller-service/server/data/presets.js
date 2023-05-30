@@ -1,8 +1,13 @@
 import { switchInput } from "../lib.js";
-import { MacbookPro, PRIMARY_MONITOR, SECONDARY_MONITOR, SuperComputer, monitors } from "./monitors.js";
+import { DellLaptop, MacbookPro, PRIMARY_MONITOR, SECONDARY_MONITOR, SuperComputer, monitors } from "./monitors.js";
 
 function _switch(monitor, computerName) {
-    switchInput(monitor.monitorName, monitor.inputs.find(input => input.computerName === computerName).portName);
+    let portName = monitor.inputs.find(input => input.computerName === computerName)?.portName;
+    if (!portName) {
+        console.log("No port found for computer", computerName, "on monitor", monitor.monitorName);
+        return;
+    }
+    switchInput(monitor.monitorName, portName);
 }
 
 function trigger(text, fn) {
@@ -34,6 +39,11 @@ export const presets = {
             trigger("All Macbook", () => {
                 _switch(PRIMARY_MONITOR, MacbookPro);
                 _switch(SECONDARY_MONITOR, MacbookPro);
+            }),
+        "DellLaptop main":
+            trigger("All DellLaptop", () => {
+                _switch(PRIMARY_MONITOR, DellLaptop);
+                _switch(SECONDARY_MONITOR, DellLaptop);
             }),
     },
 

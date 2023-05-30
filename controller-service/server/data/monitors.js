@@ -1,5 +1,6 @@
 export const SuperComputer = "SuperComputer"
 export const MacbookPro = "Macbook Pro"
+export const DellLaptop = "DellLaptop"
 
 export const monitorsSetting = {
 
@@ -37,6 +38,11 @@ export const monitors = [
       {
         computerName: MacbookPro,
         portName: "HDMI2",
+        isActivated: false,
+      },
+      {
+        computerName: DellLaptop,
+        portName: "HDMI1",
         isActivated: false,
       },
     ]
