@@ -15,7 +15,7 @@ export default function Root() {
                 content="Web site created using create-react-app"
             />
             <link rel="apple-touch-icon" href="/logo.png" />
-            <title>React App</title>
+            <title>Monitor Controller</title>
         </Head>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <App />
