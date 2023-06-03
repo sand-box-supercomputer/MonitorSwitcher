@@ -75,6 +75,7 @@ def win32_event_filter(msg, data):
 
 listener = keyboard.Listener(on_press=on_press, win32_event_filter=win32_event_filter, suppress=False)
 listener.start()
+listener.join()
 
 while(not sleep(5)):
   pass
