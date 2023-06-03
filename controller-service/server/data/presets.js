@@ -17,12 +17,12 @@ function trigger(text, fn) {
 export const presets = {
     "Single monitor per computer": {
         "SuperComputer main":
-            trigger("[SuperComputer] Macbook", () => {
+            trigger("SuperComputer & others", () => {
                 _switch(PRIMARY_MONITOR, SuperComputer);
                 _switch(SECONDARY_MONITOR, MacbookPro);
             }),
         "Macbook main":
-            trigger("[Macbook] SuperComputer", () => {
+            trigger("Macbook & others", () => {
                 _switch(PRIMARY_MONITOR, MacbookPro);
                 _switch(SECONDARY_MONITOR, SuperComputer);
             }),
