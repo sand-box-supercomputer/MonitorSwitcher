@@ -7,6 +7,8 @@ const handle = app.getRequestHandler()
 
 const PORT = 10555
 
+console.log("Start controller service")
+
 app.prepare()
     .then(() => {
         server.get('*', (req, res) => {

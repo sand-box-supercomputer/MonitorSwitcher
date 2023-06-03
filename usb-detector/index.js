@@ -4,6 +4,8 @@ import axios from "axios";
 const USB_VID_PID = "5426:545" // vendorId and productId of the USB device used for detect switching.
 const CONTROL_SERVER_URL = "http://pqhuy.ddns.net:10555"
 
+console.log("Start USB detector")
+
 async function sendEventWithKeyword(keyword) {
     console.log(keyword)
     try {
