@@ -6,7 +6,9 @@ from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
 SERVER_URL = "http://pqhuy.ddns.net:10555"
-print("Start numpad-controller.py")
+authHeader = {"Authorization": "Hello1controller"}
+
+print("Start numpad listener")
 
 s = requests.Session()
 s.mount('http://', HTTPAdapter(max_retries=Retry(total=1)))
@@ -40,22 +42,22 @@ def on_press(key: keyboard.Key):
   try:
     if key_code == NUMPAD_1:
       print("All monitors for main computer/SuperComputer main")
-      s.post(SERVER_URL + "/presets/All monitors for main computer/SuperComputer main/activate", timeout=timeout)
+      s.post(SERVER_URL + "/presets/All monitors for main computer/SuperComputer main/activate", timeout=timeout, headers=authHeader)
     if key_code == NUMPAD_2:
       print("All monitors for main computer/Macbook main")
-      s.post(SERVER_URL + "/presets/All monitors for main computer/Macbook main/activate", timeout=timeout)
+      s.post(SERVER_URL + "/presets/All monitors for main computer/Macbook main/activate", timeout=timeout, headers=authHeader)
     if key_code == NUMPAD_3:
       print("All monitors for main computer/DellLaptop main")
-      s.post(SERVER_URL + "/presets/All monitors for main computer/DellLaptop main/activate", timeout=timeout)
+      s.post(SERVER_URL + "/presets/All monitors for main computer/DellLaptop main/activate", timeout=timeout, headers=authHeader)
     if key_code == NUMPAD_4:
       print("Single monitor per computer/SuperComputer main")
-      s.post(SERVER_URL + "/presets/Single monitor per computer/SuperComputer main/activate", timeout=timeout)
+      s.post(SERVER_URL + "/presets/Single monitor per computer/SuperComputer main/activate", timeout=timeout, headers=authHeader)
     if key_code == NUMPAD_5:
       print("Single monitor per computer/Macbook main")
-      s.post(SERVER_URL + "/presets/Single monitor per computer/Macbook main/activate", timeout=timeout)
+      s.post(SERVER_URL + "/presets/Single monitor per computer/Macbook main/activate", timeout=timeout, headers=authHeader)
     if key_code == NUMPAD_6:
       print("Single monitor per computer/DellLaptop main")
-      s.post(SERVER_URL + "/presets/Single monitor per computer/DellLaptop main/activate", timeout=timeout)
+      s.post(SERVER_URL + "/presets/Single monitor per computer/DellLaptop main/activate", timeout=timeout, headers=authHeader)
   except Exception as e:
     print("Error: " + str(e))
 
@@ -75,7 +77,11 @@ def win32_event_filter(msg, data):
 
 listener = keyboard.Listener(on_press=on_press, win32_event_filter=win32_event_filter, suppress=False)
 listener.start()
-listener.join()
 
-while(not sleep(5)):
-  pass
+while(True):
+  if not listener.running:
+    listener.stop()
+    print("Restarting numpad listener")
+    listener = keyboard.Listener(on_press=on_press, win32_event_filter=win32_event_filter, suppress=False)
+    listener.start()  
+  sleep(1)

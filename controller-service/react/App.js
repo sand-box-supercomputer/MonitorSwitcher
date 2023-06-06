@@ -6,6 +6,7 @@ import Button from './components/Button';
 const BACKEND_URL = ""
 
 export default function App() {
+  const [password, setPassword] = useState("");
 
   /**
    * Monitor input status
@@ -13,12 +14,12 @@ export default function App() {
   const [monitors, setMonitors] = useState([]);
 
   const fetchMonitors = () => {
-    axios.get(`${BACKEND_URL}/monitors`)
+    axios.get(`${BACKEND_URL}/monitors`, { headers: { Authorization: password } })
       .then(({ data }) => setMonitors(data.monitors))
   }
 
   const onChangeInput = (monitorName, portName) => {
-    axios.post(`${BACKEND_URL}/monitors/${monitorName}/changeInput`, { portName })
+    axios.post(`${BACKEND_URL}/monitors/${monitorName}/changeInput`, { portName }, { headers: { Authorization: password } })
       .then(() => fetchMonitors())
   }
 
@@ -35,7 +36,7 @@ export default function App() {
   })
 
   const fetchPresets = () => {
-    axios.get(`${BACKEND_URL}/presets`)
+    axios.get(`${BACKEND_URL}/presets`, { headers: { Authorization: password } })
       .then(({ data }) => {
         setPresets(data.presets);
         setPresetsSetting(data.presetsSetting);
@@ -43,18 +44,27 @@ export default function App() {
   }
 
   const onActivatePreset = ({ key0, key1 }) => {
-    axios.post(`${BACKEND_URL}/presets/${key0}/${key1}/activate`)
+    axios.post(`${BACKEND_URL}/presets/${key0}/${key1}/activate`, { headers: { Authorization: password } })
       .then(() => fetchMonitors())
   }
 
   const onPresetSetUsbSwitchMode = (key0) => {
-    axios.post(`${BACKEND_URL}/presets/${key0}/set-usb-switch-mode`)
+    axios.post(`${BACKEND_URL}/presets/${key0}/set-usb-switch-mode`, {}, { headers: { Authorization: password } })
   }
 
   /**
    * Reloading
   */
   useEffect(() => {
+    if (localStorage.getItem("password") === null) {
+      let pwd = prompt("Please enter password");
+      localStorage.setItem("password", pwd);
+    }
+    setPassword(localStorage.getItem("password"));
+  }, []);
+
+  useEffect(() => {
+    if (password === "") return;
     fetchMonitors();
     fetchPresets();
     let itv = setInterval(() => {
@@ -62,7 +72,7 @@ export default function App() {
       fetchPresets();
     }, 1000);
     return () => clearInterval(itv);
-  }, [])
+  }, [password])
 
   return (
     <div>

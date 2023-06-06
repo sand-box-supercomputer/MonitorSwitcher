@@ -26,6 +26,10 @@ export const presets = {
                 _switch(PRIMARY_MONITOR, MacbookPro);
                 _switch(SECONDARY_MONITOR, SuperComputer);
             }),
+        "DellLaptop main":
+            trigger("DellLaptop & others", () => {
+                _switch(PRIMARY_MONITOR, DellLaptop);
+            }),
     },
 
 
