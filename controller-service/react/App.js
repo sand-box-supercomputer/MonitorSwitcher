@@ -44,7 +44,7 @@ export default function App() {
   }
 
   const onActivatePreset = ({ key0, key1 }) => {
-    axios.post(`${BACKEND_URL}/presets/${key0}/${key1}/activate`, { headers: { Authorization: password } })
+    axios.post(`${BACKEND_URL}/presets/${key0}/${key1}/activate`, {}, { headers: { Authorization: password } })
       .then(() => fetchMonitors())
   }
 

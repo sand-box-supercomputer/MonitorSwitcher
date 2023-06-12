@@ -32,10 +32,14 @@ export function fetchRealStatus() {
 
         monitors.forEach(monitor => {
             monitor.monitorId = rawMonitorIds.find(id => id.includes(monitor.monitorIdKeyword));
-            const currentInputCode = getInputSource(monitor.monitorId);
-            monitor.inputs.forEach(input => {
-                input.isActivated = (MONITOR_INPUT_CODE[input.portName] === currentInputCode);
-            })
+            try {
+                const currentInputCode = getInputSource(monitor.monitorId);
+                monitor.inputs.forEach(input => {
+                    input.isActivated = (MONITOR_INPUT_CODE[input.portName] === currentInputCode);
+                })
+            } catch (e) {
+                // suck it up
+            }
         })
     } catch (e) {
         // suck it up
