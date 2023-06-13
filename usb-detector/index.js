@@ -18,4 +18,4 @@ async function sendEventWithKeyword(keyword) {
 
 usbDetect.startMonitoring();
 usbDetect.on(`add:${USB_VID_PID}`, (device) => sendEventWithKeyword("SuperComputer"));
-usbDetect.on(`remove:${USB_VID_PID}`, (device) => sendEventWithKeyword("Macbook"));
+// usbDetect.on(`remove:${USB_VID_PID}`, (device) => sendEventWithKeyword("Macbook"));

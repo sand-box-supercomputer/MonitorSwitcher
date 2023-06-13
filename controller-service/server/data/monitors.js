@@ -9,7 +9,7 @@ export const monitorsSetting = {
 export const monitors = [
   {
     monitorName: "Lenovo L32p-30",
-    monitorIdKeyword: "LEN",
+    monitorIdKeyword: "LEN66C9",
     monitorId: "",
     inputs: [
       {
@@ -27,7 +27,7 @@ export const monitors = [
 
   {
     monitorName: "Asus PG32UQ",
-    monitorIdKeyword: "AUS",
+    monitorIdKeyword: "#AUS32E1",
     monitorId: "",
     inputs: [
       {
@@ -47,10 +47,29 @@ export const monitors = [
       },
     ]
   },
+
+  {
+    monitorName: "Lenovo L27p-20",
+    monitorIdKeyword: "LEN61E9",
+    monitorId: "",
+    inputs: [
+      {
+        computerName: SuperComputer,
+        portName: "DP",
+        isActivated: true,
+      },
+      {
+        computerName: DellLaptop,
+        portName: "USB-C",
+        isActivated: false,
+      },
+    ]
+  },
 ]
 
 export const PRIMARY_MONITOR = monitors[1]
-export const SECONDARY_MONITOR = monitors[0]
+export const SECONDARY_MONITOR_LEFT = monitors[0]
+export const SECONDARY_MONITOR_RIGHT = monitors[2]
 
 /**
  * Constants
@@ -60,4 +79,5 @@ export const MONITOR_INPUT_CODE = {
   DP: 15,
   HDMI1: 17,
   HDMI2: 18,
+  "USB-C": 49,
 }

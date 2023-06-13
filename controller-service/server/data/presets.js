@@ -1,5 +1,5 @@
 import { switchInput } from "../lib.js";
-import { DellLaptop, MacbookPro, PRIMARY_MONITOR, SECONDARY_MONITOR, SuperComputer, monitors } from "./monitors.js";
+import { DellLaptop, MacbookPro, PRIMARY_MONITOR, SECONDARY_MONITOR_LEFT, SECONDARY_MONITOR_RIGHT, SuperComputer, monitors } from "./monitors.js";
 
 function _switch(monitor, computerName) {
     let portName = monitor.inputs.find(input => input.computerName === computerName)?.portName;
@@ -19,16 +19,20 @@ export const presets = {
         "SuperComputer main":
             trigger("SuperComputer & others", () => {
                 _switch(PRIMARY_MONITOR, SuperComputer);
-                _switch(SECONDARY_MONITOR, MacbookPro);
+                _switch(SECONDARY_MONITOR_LEFT, MacbookPro);
+                _switch(SECONDARY_MONITOR_RIGHT, DellLaptop);
             }),
         "Macbook main":
             trigger("Macbook & others", () => {
                 _switch(PRIMARY_MONITOR, MacbookPro);
-                _switch(SECONDARY_MONITOR, SuperComputer);
+                _switch(SECONDARY_MONITOR_LEFT, SuperComputer);
+                _switch(SECONDARY_MONITOR_RIGHT, DellLaptop);
             }),
         "DellLaptop main":
             trigger("DellLaptop & others", () => {
                 _switch(PRIMARY_MONITOR, DellLaptop);
+                _switch(SECONDARY_MONITOR_LEFT, MacbookPro);
+                _switch(SECONDARY_MONITOR_RIGHT, SuperComputer);
             }),
     },
 
@@ -37,17 +41,18 @@ export const presets = {
         "SuperComputer main":
             trigger("All SuperComputer", () => {
                 _switch(PRIMARY_MONITOR, SuperComputer);
-                _switch(SECONDARY_MONITOR, SuperComputer);
+                _switch(SECONDARY_MONITOR_LEFT, SuperComputer);
+                _switch(SECONDARY_MONITOR_RIGHT, SuperComputer);
             }),
         "Macbook main":
             trigger("All Macbook", () => {
                 _switch(PRIMARY_MONITOR, MacbookPro);
-                _switch(SECONDARY_MONITOR, MacbookPro);
+                _switch(SECONDARY_MONITOR_LEFT, MacbookPro);
             }),
         "DellLaptop main":
             trigger("All DellLaptop", () => {
                 _switch(PRIMARY_MONITOR, DellLaptop);
-                _switch(SECONDARY_MONITOR, DellLaptop);
+                _switch(SECONDARY_MONITOR_RIGHT, DellLaptop);
             }),
     },
 
