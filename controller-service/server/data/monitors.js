@@ -13,14 +13,14 @@ export const monitors = [
     monitorId: "",
     inputs: [
       {
-        computerName: SuperComputer,
-        portName: "DP",
-        isActivated: true,
-      },
-      {
         computerName: MacbookPro,
         portName: "HDMI1",
         isActivated: false,
+      },
+      {
+        computerName: SuperComputer,
+        portName: "DP",
+        isActivated: true,
       },
     ]
   },
@@ -31,14 +31,14 @@ export const monitors = [
     monitorId: "",
     inputs: [
       {
-        computerName: SuperComputer,
-        portName: "DP",
-        isActivated: true,
-      },
-      {
         computerName: MacbookPro,
         portName: "HDMI2",
         isActivated: false,
+      },
+      {
+        computerName: SuperComputer,
+        portName: "DP",
+        isActivated: true,
       },
       {
         computerName: DellLaptop,
