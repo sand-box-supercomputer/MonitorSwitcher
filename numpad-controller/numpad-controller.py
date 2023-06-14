@@ -41,23 +41,23 @@ def on_press(key: keyboard.Key):
 
   try:
     if key_code == NUMPAD_1:
-      print("All monitors for main computer/SuperComputer main")
-      s.post(SERVER_URL + "/presets/All monitors for main computer/SuperComputer main/activate", timeout=timeout, headers=authHeader)
-    if key_code == NUMPAD_2:
-      print("All monitors for main computer/Macbook main")
-      s.post(SERVER_URL + "/presets/All monitors for main computer/Macbook main/activate", timeout=timeout, headers=authHeader)
-    if key_code == NUMPAD_3:
-      print("All monitors for main computer/DellLaptop main")
-      s.post(SERVER_URL + "/presets/All monitors for main computer/DellLaptop main/activate", timeout=timeout, headers=authHeader)
-    if key_code == NUMPAD_4:
       print("Single monitor per computer/SuperComputer main")
       s.post(SERVER_URL + "/presets/Single monitor per computer/SuperComputer main/activate", timeout=timeout, headers=authHeader)
-    if key_code == NUMPAD_5:
+    if key_code == NUMPAD_2:
       print("Single monitor per computer/Macbook main")
       s.post(SERVER_URL + "/presets/Single monitor per computer/Macbook main/activate", timeout=timeout, headers=authHeader)
-    if key_code == NUMPAD_6:
+    if key_code == NUMPAD_3:
       print("Single monitor per computer/DellLaptop main")
       s.post(SERVER_URL + "/presets/Single monitor per computer/DellLaptop main/activate", timeout=timeout, headers=authHeader)
+    if key_code == NUMPAD_4:
+      print("All monitors for main computer/SuperComputer main")
+      s.post(SERVER_URL + "/presets/All monitors for main computer/SuperComputer main/activate", timeout=timeout, headers=authHeader)
+    if key_code == NUMPAD_5:
+      print("All monitors for main computer/Macbook main")
+      s.post(SERVER_URL + "/presets/All monitors for main computer/Macbook main/activate", timeout=timeout, headers=authHeader)
+    if key_code == NUMPAD_6:
+      print("All monitors for main computer/DellLaptop main")
+      s.post(SERVER_URL + "/presets/All monitors for main computer/DellLaptop main/activate", timeout=timeout, headers=authHeader)
   except Exception as e:
     print("Error: " + str(e))
 
