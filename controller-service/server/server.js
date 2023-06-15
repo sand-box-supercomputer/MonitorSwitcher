@@ -1,10 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import { monitors, monitorsSetting } from './data/monitors.js';
-import { fetchRealStatus, switchInput } from './lib.js';
+import { changeMuteMonitor, changeVolume, syncRealStatus, switchInput, toggleMuteMonitor } from './lib.js';
 import { presetsSetting, presets } from './data/presets.js';
 
-fetchRealStatus();
+syncRealStatus();
 
 /** 
  * Express Server
@@ -27,12 +27,30 @@ server.get('/monitors', requiresAuth, (req, res) => {
 })
 
 server.post('/monitors/:monitorName/changeInput', requiresAuth, (req, res) => {
-  console.log(req.body)
   const { monitorName } = req.params;
   const { portName } = req.body;
+  console.log("\nchangeInput", monitorName, portName);
+
   switchInput(monitorName, portName);
-  res.send(monitors)
+  res.send({ monitors, monitorsSetting })
 })
+
+server.post('/monitors/:monitorName/changeVolume', requiresAuth, (req, res) => {
+  const { monitorName } = req.params;
+  const { volumeValue, volumeAdded, isMuted, toggleMute } = req.body;
+  console.log("\nchangeVolume", monitorName, { volumeValue, volumeAdded, isMuted, toggleMute });
+
+  if (volumeValue !== undefined || volumeAdded !== undefined) {
+    changeVolume(monitorName, volumeValue, volumeAdded);
+  }
+  if (isMuted !== undefined) {
+    changeMuteMonitor(monitorName, isMuted);
+  }
+  if (toggleMute === true && isMuted === undefined) {
+    toggleMuteMonitor(monitorName);
+  }
+  res.send({ monitors, monitorsSetting })
+}) /
 
 server.get('/presets', requiresAuth, (req, res) => {
   res.send({ presets, presetsSetting });
@@ -40,12 +58,16 @@ server.get('/presets', requiresAuth, (req, res) => {
 
 server.post('/presets/:key0/:key1/activate', requiresAuth, (req, res) => {
   const { key0, key1 } = req.params;
+  console.log(`\nactivate preset [${key0}][${key1}].`);
+
   presets[key0][key1].trigger();
   res.send({ presets, presetsSetting })
 })
 
 server.post('/presets/:key0/set-usb-switch-mode', requiresAuth, (req, res) => {
   const { key0 } = req.params;
+  console.log("\nset usb switch mode", key0);
+
   presetsSetting['Preset mode for USB switch'] = key0;
   res.send({ presetsSetting })
 })

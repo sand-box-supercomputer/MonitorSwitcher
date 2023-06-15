@@ -11,6 +11,9 @@ export const monitors = [
     monitorName: "Lenovo L32p-30",
     monitorIdKeyword: "LEN66C9",
     monitorId: "",
+    volume: -1,
+    volumeBeforeMute: -1,
+    isMuted: true,
     inputs: [
       {
         computerName: MacbookPro,
@@ -29,6 +32,9 @@ export const monitors = [
     monitorName: "Asus PG32UQ",
     monitorIdKeyword: "#AUS32E1",
     monitorId: "",
+    volume: -1,
+    volumeBeforeMute: -1,
+    isMuted: true,
     inputs: [
       {
         computerName: MacbookPro,
@@ -49,9 +55,12 @@ export const monitors = [
   },
 
   {
-    monitorName: "Lenovo L27p-20",
+    monitorName: "Lenovo P27h-20",
     monitorIdKeyword: "LEN61E9",
     monitorId: "",
+    volume: -1,
+    volumeBeforeMute: -1,
+    isMuted: true,
     inputs: [
       {
         computerName: SuperComputer,

@@ -1,27 +1,21 @@
 import { css } from "@emotion/css"
+import { Button as AntButton } from "antd"
 
 export default function Button({ children, onClick, isActivated }) {
   return (
-    <button className={styles.button(isActivated)} onClick={onClick}>
+    <AntButton
+      type={isActivated ? "primary" : "default"}
+      onClick={onClick}
+      style={styles.antButton} size="large"
+    >
       {children}
-    </button>
+    </AntButton >
   );
 };
 
 const styles = {
-  button: (isActivated) => css`
-    font-size: 16px;
-    padding: 8px 16px;
-    border: 1px solid black;
-    background-color: ${isActivated ? '#00c853' : '#f2f2f2'};
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-    margin: 10px;
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
-    }
-  `,
+  antButton: {
+    fontSize: "16px",
+    margin: "10px",
+  }
 };

@@ -1,6 +1,12 @@
 import Button from "./Button"
+import VolumeSelector from "./VolumeSelector"
 
-export default function Monitor({ monitorName, inputs, onChangeInput }) {
+export default function Monitor({
+  monitor, monitorName,
+  inputs, onChangeInput,
+  volumeValue, isMuted, onVolumeChange, onMuteButtonClick,
+}) {
+  console.log("Monitor.jsx: rendering", { monitor, monitorName, inputs, volumeValue, isMuted })
   return (
     <div style={styles.container}>
       <div style={styles.header}>
@@ -12,8 +18,16 @@ export default function Monitor({ monitorName, inputs, onChangeInput }) {
             isActivated={input.isActivated}
             onClick={() => onChangeInput(monitorName, input.portName)}>
 
-            <b>{input.computerName}</b> ({input.portName})
+            <b>{input.computerName}</b>
           </Button>))}
+      </div>
+      <div style={styles.volumeSection}>
+        <VolumeSelector
+          volumeValue={volumeValue}
+          isMuted={isMuted}
+          onVolumeChange={onVolumeChange}
+          onMuteButtonClick={onMuteButtonClick}
+        />
       </div>
     </div>
   )
@@ -44,10 +58,10 @@ const styles = {
     alignItems: "center",
     flexWrap: "wrap",
   },
+  volumeSection: {
+  },
   button: {
     fontSize: "15px",
-    cursor: "pointer",
-    padding: "10px",
     margin: "10px",
   }
 }

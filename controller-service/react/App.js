@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Monitor from './components/Monitor';
 import axios from "axios"
 import Button from './components/Button';
+import { Button as AntButton } from "antd"
 
 const BACKEND_URL = ""
 
@@ -20,8 +21,24 @@ export default function App() {
 
   const onChangeInput = (monitorName, portName) => {
     axios.post(`${BACKEND_URL}/monitors/${monitorName}/changeInput`, { portName }, { headers: { Authorization: password } })
-      .then(() => fetchMonitors())
+      .then(({ data }) => setMonitors(data.monitors))
   }
+
+  /**
+   * Monitor volume status
+   */
+  const changeVolume = async (monitorName, volumeValue, isMuted) => {
+    return axios.post(`${BACKEND_URL}/monitors/${monitorName}/changeVolume`, { volumeValue, isMuted }, { headers: { Authorization: password } })
+      .then(({ data }) => setMonitors(data.monitors))
+  }
+
+  const changeMuteAll = (isMuted) => {
+    for (const monitor of monitors) {
+      changeVolume(monitor.monitorName, undefined, isMuted);
+    }
+  }
+
+  const isAllMuted = monitors.filter(monitor => monitor.isMuted || monitor.volume === 0).length === monitors.length;
 
   /**
    * Presets
@@ -70,13 +87,13 @@ export default function App() {
     let itv = setInterval(() => {
       fetchMonitors();
       fetchPresets();
-    }, 1000);
+    }, 333);
     return () => clearInterval(itv);
   }, [password])
 
   return (
     <div>
-      <h1>Execute Presets</h1>
+      <h1>Display Presets</h1>
       <div>
         {
           Object.keys(presets).map(key0 => {
@@ -94,8 +111,7 @@ export default function App() {
         }
       </div>
 
-
-      <h1>Preset for USB Switch</h1>
+      <h1>Preset on USB Switch</h1>
       <div style={styles.container}>
         <div style={styles.settingBlock}>
           {
@@ -111,12 +127,30 @@ export default function App() {
 
 
       <h1>Monitors</h1>
+
+      <AntButton
+        type="primary"
+        size="large"
+        danger={!isAllMuted}
+        onClick={() => changeMuteAll(!isAllMuted)}
+      >
+        <b>{isAllMuted ? "UNMUTE ALL" : "MUTE ALL"}</b>
+      </AntButton>
+
       <div style={styles.container}>
         {
           monitors.map((monitor => (<Monitor key={monitor.monitorName}
+            monitor={monitor}
             monitorName={monitor.monitorName}
+
             inputs={monitor.inputs}
-            onChangeInput={onChangeInput}></Monitor>)))
+            onChangeInput={onChangeInput}
+
+            isMuted={monitor.isMuted}
+            volumeValue={!monitor.isMuted ? monitor.volume : monitor.volumeBeforeMute}
+            onVolumeChange={(volumeValue) => changeVolume(monitor.monitorName, volumeValue, undefined)}
+            onMuteButtonClick={() => changeVolume(monitor.monitorName, undefined, !monitor.isMuted)}
+          ></Monitor>)))
         }
       </div>
 

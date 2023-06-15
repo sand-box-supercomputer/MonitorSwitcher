@@ -1,11 +1,13 @@
+from concurrent.futures import thread
 from math import e
 from time import sleep
+from tkinter import LEFT
 from pynput import keyboard
 import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
-SERVER_URL = "http://pqhuy.ddns.net:10555"
+SERVER_URL = "http://localhost:10555"
 authHeader = {"Authorization": "Hello1controller"}
 
 print("Start numpad listener")
@@ -30,7 +32,21 @@ NUMPAD_7 = (103)
 NUMPAD_8 = (104)
 NUMPAD_9 = (105)
 
+LEFT_MONITOR = "Lenovo L32p-30"
+CENTER_MONITOR = "Asus PG32UQ"
+RIGHT_MONITOR = "Lenovo P27h-20"
+SELECTED_MONITOR = CENTER_MONITOR
+
+VOLUME_STEP = 5
+
+# Use ThreadPoolExecutor to run multiple requests asynchronously
+thread_pool_executor = thread.ThreadPoolExecutor(max_workers=20)
+
+def post_async(url, json):
+  thread_pool_executor.submit(s.post, url, json=json, timeout=timeout, headers=authHeader)
+
 def on_press(key: keyboard.Key):
+  global SELECTED_MONITOR
   if key == keyboard.Key.esc:
     return False
 
@@ -40,24 +56,63 @@ def on_press(key: keyboard.Key):
     key_code = key.value.vk
 
   try:
+    # Single monitor per computer
+
     if key_code == NUMPAD_1:
       print("Single monitor per computer/SuperComputer main")
-      s.post(SERVER_URL + "/presets/Single monitor per computer/SuperComputer main/activate", timeout=timeout, headers=authHeader)
+      post_async(SERVER_URL + "/presets/Single monitor per computer/SuperComputer main/activate")
     if key_code == NUMPAD_2:
       print("Single monitor per computer/Macbook main")
-      s.post(SERVER_URL + "/presets/Single monitor per computer/Macbook main/activate", timeout=timeout, headers=authHeader)
+      post_async(SERVER_URL + "/presets/Single monitor per computer/Macbook main/activate")
     if key_code == NUMPAD_3:
       print("Single monitor per computer/DellLaptop main")
-      s.post(SERVER_URL + "/presets/Single monitor per computer/DellLaptop main/activate", timeout=timeout, headers=authHeader)
+      post_async(SERVER_URL + "/presets/Single monitor per computer/DellLaptop main/activate")
+
+    # All monitors for main computer
+
     if key_code == NUMPAD_4:
       print("All monitors for main computer/SuperComputer main")
-      s.post(SERVER_URL + "/presets/All monitors for main computer/SuperComputer main/activate", timeout=timeout, headers=authHeader)
+      post_async(SERVER_URL + "/presets/All monitors for main computer/SuperComputer main/activate")
     if key_code == NUMPAD_5:
       print("All monitors for main computer/Macbook main")
-      s.post(SERVER_URL + "/presets/All monitors for main computer/Macbook main/activate", timeout=timeout, headers=authHeader)
+      post_async(SERVER_URL + "/presets/All monitors for main computer/Macbook main/activate")
     if key_code == NUMPAD_6:
       print("All monitors for main computer/DellLaptop main")
-      s.post(SERVER_URL + "/presets/All monitors for main computer/DellLaptop main/activate", timeout=timeout, headers=authHeader)
+      post_async(SERVER_URL + "/presets/All monitors for main computer/DellLaptop main/activate")
+
+    # Mute monitors
+
+    if key_code == NUMPAD_7:
+      SELECTED_MONITOR = LEFT_MONITOR
+      print("Toggle mute", SELECTED_MONITOR)
+      post_async(SERVER_URL + "/monitors/" + SELECTED_MONITOR + "/changeVolume", json={"toggleMute": True})
+    if key_code == NUMPAD_8:
+      SELECTED_MONITOR = CENTER_MONITOR
+      print("Toggle mute", SELECTED_MONITOR)
+      post_async(SERVER_URL + "/monitors/" + SELECTED_MONITOR + "/changeVolume", json={"toggleMute": True})
+    if key_code == NUMPAD_9:
+      SELECTED_MONITOR = RIGHT_MONITOR
+      print("Toggle mute", SELECTED_MONITOR)
+      post_async(SERVER_URL + "/monitors/" + SELECTED_MONITOR + "/changeVolume", json={"toggleMute": True})
+
+    # Mute all monitors
+    if key_code == NUMPAD_MINUS:
+      print("Mute all")
+      for monitor in [LEFT_MONITOR, CENTER_MONITOR, RIGHT_MONITOR]:
+        post_async(SERVER_URL + "/monitors/" + monitor + "/changeVolume", json={"isMuted": True})
+
+
+    # Change volume
+
+    if key_code == NUMPAD_DIVIDE:
+      print("Volume down", SELECTED_MONITOR)
+      post_async(SERVER_URL + "/monitors/" + SELECTED_MONITOR + "/changeVolume",
+        json={"volumeAdded": -VOLUME_STEP})
+    if key_code == NUMPAD_MULTIPLY:
+      print("Volume up", SELECTED_MONITOR)
+      post_async(SERVER_URL + "/monitors/" + SELECTED_MONITOR + "/changeVolume",
+        json={"volumeAdded": VOLUME_STEP})
+
   except Exception as e:
     print("Error: " + str(e))
 
