@@ -42,7 +42,7 @@ VOLUME_STEP = 5
 # Use ThreadPoolExecutor to run multiple requests asynchronously
 thread_pool_executor = thread.ThreadPoolExecutor(max_workers=20)
 
-def post_async(url, json):
+def post_async(url, json = None):
   thread_pool_executor.submit(s.post, url, json=json, timeout=timeout, headers=authHeader)
 
 def on_press(key: keyboard.Key):
