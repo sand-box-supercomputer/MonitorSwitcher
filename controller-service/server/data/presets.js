@@ -17,20 +17,20 @@ function trigger(text, fn) {
 
 export const presets = {
     "Single monitor per computer": {
-        "SuperComputer main":
-            trigger("SuperComputer & others", () => {
+        [`${SuperComputer} main`]:
+            trigger(`${SuperComputer} & others`, () => {
                 _switch(MONITOR_CENTER, SuperComputer);
                 _switch(MONITOR_LEFT, MacbookPro);
                 _switch(MONITOR_RIGHT, DellLaptop);
             }),
-        "Macbook main":
-            trigger("Macbook & others", () => {
+        [`${MacbookPro} main`]:
+            trigger(`${MacbookPro} & others`, () => {
                 _switch(MONITOR_CENTER, MacbookPro);
                 _switch(MONITOR_LEFT, SuperComputer);
                 _switch(MONITOR_RIGHT, DellLaptop);
             }),
-        "DellLaptop main":
-            trigger("DellLaptop & others", () => {
+        [`${DellLaptop} main`]:
+            trigger(`${DellLaptop} & others`, () => {
                 _switch(MONITOR_CENTER, DellLaptop);
                 _switch(MONITOR_LEFT, MacbookPro);
                 _switch(MONITOR_RIGHT, SuperComputer);
@@ -39,19 +39,19 @@ export const presets = {
 
 
     "All monitors for main computer": {
-        "SuperComputer main":
-            trigger("All SuperComputer", () => {
+        [`${SuperComputer} main`]:
+            trigger(`All ${SuperComputer}`, () => {
                 _switch(MONITOR_CENTER, SuperComputer);
                 _switch(MONITOR_LEFT, SuperComputer);
                 _switch(MONITOR_RIGHT, SuperComputer);
             }),
-        "Macbook main":
-            trigger("All Macbook", () => {
+        [`${MacbookPro} main`]:
+            trigger(`All ${MacbookPro}`, () => {
                 _switch(MONITOR_CENTER, MacbookPro);
                 _switch(MONITOR_LEFT, MacbookPro);
             }),
-        "DellLaptop main":
-            trigger("All DellLaptop", () => {
+        [`${DellLaptop} main`]:
+            trigger(`All ${DellLaptop}`, () => {
                 _switch(MONITOR_CENTER, DellLaptop);
                 _switch(MONITOR_RIGHT, DellLaptop);
             }),

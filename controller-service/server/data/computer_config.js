@@ -45,7 +45,7 @@ export const COMPUTER_CONFIG = {
         MONITOR_SPEAKER_MAP: {
             [MONITOR_CENTER]: {
                 notMuted: "ASUS PG32UQ",
-                muted: "JBL Quantum810 Wireless Chat",
+                muted: "JBL Quantum810 Wireless Game",
             },
             [MONITOR_LEFT]: {
                 notMuted: "L32p-30",

@@ -62,8 +62,8 @@ def on_press(key: keyboard.Key):
       print("Single monitor per computer/SuperComputer main")
       post_async(SERVER_URL + "/presets/Single monitor per computer/SuperComputer main/activate")
     if key_code == NUMPAD_2:
-      print("Single monitor per computer/Macbook main")
-      post_async(SERVER_URL + "/presets/Single monitor per computer/Macbook main/activate")
+      print("Single monitor per computer/MacbookPro main")
+      post_async(SERVER_URL + "/presets/Single monitor per computer/MacbookPro main/activate")
     if key_code == NUMPAD_3:
       print("Single monitor per computer/DellLaptop main")
       post_async(SERVER_URL + "/presets/Single monitor per computer/DellLaptop main/activate")
@@ -74,8 +74,8 @@ def on_press(key: keyboard.Key):
       print("All monitors for main computer/SuperComputer main")
       post_async(SERVER_URL + "/presets/All monitors for main computer/SuperComputer main/activate")
     if key_code == NUMPAD_5:
-      print("All monitors for main computer/Macbook main")
-      post_async(SERVER_URL + "/presets/All monitors for main computer/Macbook main/activate")
+      print("All monitors for main computer/MacbookPro main")
+      post_async(SERVER_URL + "/presets/All monitors for main computer/MacbookPro main/activate")
     if key_code == NUMPAD_6:
       print("All monitors for main computer/DellLaptop main")
       post_async(SERVER_URL + "/presets/All monitors for main computer/DellLaptop main/activate")

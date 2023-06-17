@@ -1,6 +1,6 @@
 // Computers
 export const SuperComputer = "SuperComputer"
-export const MacbookPro = "Macbook Pro"
+export const MacbookPro = "MacbookPro"
 export const DellLaptop = "DellLaptop"
 
 // Monitors
