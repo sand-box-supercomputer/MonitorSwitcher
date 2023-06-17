@@ -14,13 +14,13 @@ export default function App() {
   */
   const [monitors, setMonitors] = useState([]);
 
-  const fetchMonitors = () => {
-    axios.get(`${BACKEND_URL}/monitors`, { headers: { Authorization: password } })
+  const fetchMonitors = async () => {
+    return axios.get(`${BACKEND_URL}/monitors`, { headers: { Authorization: password } })
       .then(({ data }) => setMonitors(data.monitors))
   }
 
-  const onChangeInput = (monitorName, portName) => {
-    axios.post(`${BACKEND_URL}/monitors/${monitorName}/changeInput`, { portName }, { headers: { Authorization: password } })
+  const onChangeInput = async (monitorName, portName) => {
+    return axios.post(`${BACKEND_URL}/monitors/${monitorName}/changeInput`, { portName }, { headers: { Authorization: password } })
       .then(({ data }) => setMonitors(data.monitors))
   }
 
@@ -52,21 +52,21 @@ export default function App() {
     })
   })
 
-  const fetchPresets = () => {
-    axios.get(`${BACKEND_URL}/presets`, { headers: { Authorization: password } })
+  const fetchPresets = async () => {
+    return axios.get(`${BACKEND_URL}/presets`, { headers: { Authorization: password } })
       .then(({ data }) => {
         setPresets(data.presets);
         setPresetsSetting(data.presetsSetting);
       })
   }
 
-  const onActivatePreset = ({ key0, key1 }) => {
-    axios.post(`${BACKEND_URL}/presets/${key0}/${key1}/activate`, {}, { headers: { Authorization: password } })
+  const onActivatePreset = async ({ key0, key1 }) => {
+    return axios.post(`${BACKEND_URL}/presets/${key0}/${key1}/activate`, {}, { headers: { Authorization: password } })
       .then(() => fetchMonitors())
   }
 
-  const onPresetSetUsbSwitchMode = (key0) => {
-    axios.post(`${BACKEND_URL}/presets/${key0}/set-usb-switch-mode`, {}, { headers: { Authorization: password } })
+  const onPresetSetUsbSwitchMode = async (key0) => {
+    return axios.post(`${BACKEND_URL}/presets/${key0}/set-usb-switch-mode`, {}, { headers: { Authorization: password } })
   }
 
   /**
@@ -82,13 +82,16 @@ export default function App() {
 
   useEffect(() => {
     if (password === "") return;
+    const repeat = () => setTimeout(async () => {
+      await Promise.all([
+        fetchMonitors(),
+        fetchPresets(),
+      ]);
+      repeat();
+    }, 333);
     fetchMonitors();
     fetchPresets();
-    let itv = setInterval(() => {
-      fetchMonitors();
-      fetchPresets();
-    }, 333);
-    return () => clearInterval(itv);
+    repeat();
   }, [password])
 
   return (

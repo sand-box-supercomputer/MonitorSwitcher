@@ -6,7 +6,6 @@ export default function Monitor({
   inputs, onChangeInput,
   volumeValue, isMuted, onVolumeChange, onMuteButtonClick,
 }) {
-  console.log("Monitor.jsx: rendering", { monitor, monitorName, inputs, volumeValue, isMuted })
   return (
     <div style={styles.container}>
       <div style={styles.header}>

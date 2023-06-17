@@ -1,5 +1,5 @@
 import next from "next"
-import { server } from "./server.js"
+import { expressApp, server } from "./server.js"
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -11,7 +11,7 @@ console.log("Start controller service")
 
 app.prepare()
     .then(() => {
-        server.get('*', (req, res) => {
+        expressApp.get('*', (req, res) => {
             return handle(req, res)
         })
         server.listen(PORT, (err) => {
