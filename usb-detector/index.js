@@ -1,7 +1,7 @@
 import usbDetect from 'usb-detection';
 import axios from "axios";
 import { io } from "socket.io-client";
-import { execFile } from "child_process";
+import { execFile, exec } from "child_process";
 import { AUDIO_MONITOR_PRIORITY, COMPUTER_NAME } from './local-config.js';
 
 const USB_VID_PID = "5426:545" // vendorId and productId of the USB device used for detect switching.
@@ -59,10 +59,36 @@ socket.on("connectedMonitors", (data) => {
 })
 
 function switchAudioOutput(chosenMonitor) {
+  switch (process.platform) {
+    case "win32":
+      switchAudioOutputWindows(chosenMonitor);
+      break;
+    case "darwin":
+      switchAudioOutputMac(chosenMonitor);
+      break;
+    default:
+      console.log("Unsupported platform");
+  }
+}
+
+function switchAudioOutputWindows(chosenMonitor) {
   const audioOutput = MONITOR_SPEAKER_MAP[chosenMonitor.monitorName](chosenMonitor.isMuted);
   if (audioOutput) {
     console.log("CMD: ./nircmd/nircmd.exe setdefaultsounddevice", audioOutput)
     execFile("./nircmd/nircmd.exe", ["setdefaultsounddevice", audioOutput], (error, data) => {
+      if (error) {
+        console.log(error, data);
+      }
+    });
+  }
+}
+
+function switchAudioOutputMac(chosenMonitor) {
+  const audioOutput = MONITOR_SPEAKER_MAP[chosenMonitor.monitorName](chosenMonitor.isMuted);
+  if (audioOutput) {
+    const cmd = `SwitchAudioSource -s "${audioOutput}"`;
+    console.log("CMD:", cmd);
+    exec(cmd, (error, data) => {
       if (error) {
         console.log(error, data);
       }
