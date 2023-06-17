@@ -1,6 +1,12 @@
+// Computers
 export const SuperComputer = "SuperComputer"
 export const MacbookPro = "Macbook Pro"
 export const DellLaptop = "DellLaptop"
+
+// Monitors
+export const MONITOR_LEFT = "Lenovo L32p-30";
+export const MONITOR_CENTER = "Asus PG32UQ";
+export const MONITOR_RIGHT = "Lenovo P27h-20";
 
 export const monitorsSetting = {
 
@@ -8,7 +14,7 @@ export const monitorsSetting = {
 
 export const monitors = [
   {
-    monitorName: "Lenovo L32p-30",
+    monitorName: MONITOR_LEFT,
     monitorIdKeyword: "LEN66C9",
     monitorId: "",
     volume: -1,
@@ -29,7 +35,7 @@ export const monitors = [
   },
 
   {
-    monitorName: "Asus PG32UQ",
+    monitorName: MONITOR_CENTER,
     monitorIdKeyword: "#AUS32E1",
     monitorId: "",
     volume: -1,
@@ -55,7 +61,7 @@ export const monitors = [
   },
 
   {
-    monitorName: "Lenovo P27h-20",
+    monitorName: MONITOR_RIGHT,
     monitorIdKeyword: "LEN61E9",
     monitorId: "",
     volume: -1,
@@ -75,10 +81,6 @@ export const monitors = [
     ]
   },
 ]
-
-export const PRIMARY_MONITOR = monitors[1]
-export const SECONDARY_MONITOR_LEFT = monitors[0]
-export const SECONDARY_MONITOR_RIGHT = monitors[2]
 
 /**
  * Constants

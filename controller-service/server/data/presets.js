@@ -1,7 +1,8 @@
 import { switchInput } from "../lib.js";
-import { DellLaptop, MacbookPro, PRIMARY_MONITOR, SECONDARY_MONITOR_LEFT, SECONDARY_MONITOR_RIGHT, SuperComputer, monitors } from "./monitors.js";
+import { DellLaptop, MONITOR_CENTER, MONITOR_LEFT, MONITOR_RIGHT, MacbookPro, SuperComputer, monitors } from "./monitors.js";
 
-function _switch(monitor, computerName) {
+function _switch(monitorName, computerName) {
+    const monitor = monitors.find(m => m.monitorName === monitorName);
     let portName = monitor.inputs.find(input => input.computerName === computerName)?.portName;
     if (!portName) {
         console.log("No port found for computer", computerName, "on monitor", monitor.monitorName);
@@ -18,21 +19,21 @@ export const presets = {
     "Single monitor per computer": {
         "SuperComputer main":
             trigger("SuperComputer & others", () => {
-                _switch(PRIMARY_MONITOR, SuperComputer);
-                _switch(SECONDARY_MONITOR_LEFT, MacbookPro);
-                _switch(SECONDARY_MONITOR_RIGHT, DellLaptop);
+                _switch(MONITOR_CENTER, SuperComputer);
+                _switch(MONITOR_LEFT, MacbookPro);
+                _switch(MONITOR_RIGHT, DellLaptop);
             }),
         "Macbook main":
             trigger("Macbook & others", () => {
-                _switch(PRIMARY_MONITOR, MacbookPro);
-                _switch(SECONDARY_MONITOR_LEFT, SuperComputer);
-                _switch(SECONDARY_MONITOR_RIGHT, DellLaptop);
+                _switch(MONITOR_CENTER, MacbookPro);
+                _switch(MONITOR_LEFT, SuperComputer);
+                _switch(MONITOR_RIGHT, DellLaptop);
             }),
         "DellLaptop main":
             trigger("DellLaptop & others", () => {
-                _switch(PRIMARY_MONITOR, DellLaptop);
-                _switch(SECONDARY_MONITOR_LEFT, MacbookPro);
-                _switch(SECONDARY_MONITOR_RIGHT, SuperComputer);
+                _switch(MONITOR_CENTER, DellLaptop);
+                _switch(MONITOR_LEFT, MacbookPro);
+                _switch(MONITOR_RIGHT, SuperComputer);
             }),
     },
 
@@ -40,19 +41,19 @@ export const presets = {
     "All monitors for main computer": {
         "SuperComputer main":
             trigger("All SuperComputer", () => {
-                _switch(PRIMARY_MONITOR, SuperComputer);
-                _switch(SECONDARY_MONITOR_LEFT, SuperComputer);
-                _switch(SECONDARY_MONITOR_RIGHT, SuperComputer);
+                _switch(MONITOR_CENTER, SuperComputer);
+                _switch(MONITOR_LEFT, SuperComputer);
+                _switch(MONITOR_RIGHT, SuperComputer);
             }),
         "Macbook main":
             trigger("All Macbook", () => {
-                _switch(PRIMARY_MONITOR, MacbookPro);
-                _switch(SECONDARY_MONITOR_LEFT, MacbookPro);
+                _switch(MONITOR_CENTER, MacbookPro);
+                _switch(MONITOR_LEFT, MacbookPro);
             }),
         "DellLaptop main":
             trigger("All DellLaptop", () => {
-                _switch(PRIMARY_MONITOR, DellLaptop);
-                _switch(SECONDARY_MONITOR_RIGHT, DellLaptop);
+                _switch(MONITOR_CENTER, DellLaptop);
+                _switch(MONITOR_RIGHT, DellLaptop);
             }),
     },
 

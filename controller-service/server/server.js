@@ -5,6 +5,7 @@ import { monitors, monitorsSetting } from './data/monitors.js';
 import { changeMuteMonitor, changeVolume, syncRealStatus, switchInput, toggleMuteMonitor } from './lib.js';
 import { presetsSetting, presets } from './data/presets.js';
 import { Server } from "socket.io";
+import { COMPUTER_CONFIG, getComputerName } from './data/computer_config.js';
 
 syncRealStatus();
 
@@ -27,6 +28,16 @@ function requiresAuth(req, res, next) {
     res.status(401).send('Unauthorized')
   }
 }
+
+expressApp.get('/computer-config/:computerId', (req, res) => {
+  const { computerId } = req.params;
+  const config = COMPUTER_CONFIG[computerId];
+  if (config) {
+    res.send(config);
+  } else {
+    res.status(404).send(`No config for computer "${computerId}" found.`);
+  }
+})
 
 expressApp.get('/monitors', requiresAuth, (req, res) => {
   res.send({ monitors, monitorsSetting })
@@ -84,8 +95,14 @@ expressApp.post('/presets/:key0/set-usb-switch-mode', requiresAuth, (req, res) =
 })
 
 // This endpoint is unauthenticated for devices to submit USB events
-expressApp.post('/usb-switch/:computerName', (req, res) => {
-  let { computerName } = req.params;
+expressApp.post('/usb-switch/:computerId', (req, res) => {
+  let { computerId } = req.params;
+  let computerName = getComputerName(computerId);
+  if (!computerName) {
+    res.status(404).send(`Unknown computer "${computerId}".`);
+    return;
+  }
+
   let key0 = presetsSetting["Preset mode for USB switch"]
   if (Object.keys(presets[key0]).length <= 0) {
     console.log(presets[key0])
@@ -116,8 +133,14 @@ const clientComputerSocketIo = new Server(server, {
 });
 clientComputerSocketIo.on('connection', (socket) => {
   console.log('a user connected');
-  socket.on('register', (computerName) => {
-    console.log(`Register computer ${computerName}`);
+  socket.on('register', (computerId) => {
+    const computerName = getComputerName(computerId);
+    if (!computerName) {
+      console.log(`Unknown connected computer "${computerId}".`);
+      return;
+    }
+
+    console.log(`Register computer ${computerId} (${computerName})`);
     socket.join(`events/${computerName}`);
     notifyAllComputers();
   });
