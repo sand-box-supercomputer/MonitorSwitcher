@@ -58,6 +58,8 @@ expressApp.post('/monitors/:monitorName/changeVolume', requiresAuth, (req, res) 
   const { volumeValue, volumeAdded, isMuted, toggleMute } = req.body;
   console.log("\nchangeVolume", monitorName, { volumeValue, volumeAdded, isMuted, toggleMute });
 
+  const isPreviouslyMuted = monitors.find(m => m.monitorName === monitorName).isMuted;
+
   if (volumeValue !== undefined || volumeAdded !== undefined) {
     changeVolume(monitorName, volumeValue, volumeAdded);
   }
@@ -68,7 +70,9 @@ expressApp.post('/monitors/:monitorName/changeVolume', requiresAuth, (req, res) 
     toggleMuteMonitor(monitorName);
   }
   res.send({ monitors, monitorsSetting })
-  if (isMuted !== undefined || toggleMute === true) {
+
+  const isNowMuted = monitors.find(m => m.monitorName === monitorName).isMuted;
+  if (isPreviouslyMuted !== isNowMuted) {
     notifyAllComputers();
   }
 })
@@ -137,6 +141,7 @@ clientComputerSocketIo.on('connection', (socket) => {
     const computerName = getComputerName(computerId);
     if (!computerName) {
       console.log(`Unknown connected computer "${computerId}".`);
+      socket.disconnect(true);
       return;
     }
 
