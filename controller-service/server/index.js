@@ -5,7 +5,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-const PORT = 10555
+const PORT = 443
 
 console.log("Start controller service")
 

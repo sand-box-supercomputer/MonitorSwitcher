@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-import http from 'http';
+import https from 'https';
+import fs from 'fs';
 import { monitors, monitorsSetting } from './data/monitors.js';
 import { changeMuteMonitor, changeVolume, syncRealStatus, switchInput, toggleMuteMonitor } from './lib.js';
 import { presetsSetting, presets } from './data/presets.js';
@@ -131,7 +132,13 @@ expressApp.post('/usb-switch/:computerId', (req, res) => {
  * Socket.io server
  */
 
-export const server = http.createServer(expressApp);
+// read https certificate
+
+export const server = https.createServer({
+  key: fs.readFileSync("C:\\Certbot\\live\\monitor.quangdel.com\\privkey.pem"),
+  cert: fs.readFileSync("C:\\Certbot\\live\\monitor.quangdel.com\\fullchain.pem"),
+}, expressApp);
+
 const clientComputerSocketIo = new Server(server, {
   path: "/client-computer",
 });
