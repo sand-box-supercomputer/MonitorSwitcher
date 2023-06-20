@@ -7,13 +7,13 @@ import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
-SERVER_URL = "http://localhost:10555"
+SERVER_URL = "https://localhost"
 authHeader = {"Authorization": "Hello1controller"}
 
 print("Start numpad listener")
 
 s = requests.Session()
-s.mount('http://', HTTPAdapter(max_retries=Retry(total=1)))
+s.mount('https://', HTTPAdapter(max_retries=Retry(total=1)))
 timeout = 0.5
 
 NUMPAD_PLUS = (107)
@@ -43,7 +43,7 @@ VOLUME_STEP = 5
 thread_pool_executor = thread.ThreadPoolExecutor(max_workers=20)
 
 def post_async(url, json = None):
-  thread_pool_executor.submit(s.post, url, json=json, timeout=timeout, headers=authHeader)
+  thread_pool_executor.submit(s.post, url, json=json, timeout=timeout, headers=authHeader, verify=False)
 
 def on_press(key: keyboard.Key):
   global SELECTED_MONITOR

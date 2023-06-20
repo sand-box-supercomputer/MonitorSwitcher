@@ -3,7 +3,7 @@ import { DellLaptop, MONITOR_CENTER, MONITOR_LEFT, MONITOR_RIGHT, MacbookPro, Su
 export const COMPUTER_CONFIG = {
     "Huy Pham@SuperComputer": {
         COMPUTER_NAME: SuperComputer,
-        CONTROL_SERVER_URL: "http://localhost:10555",
+        CONTROL_SERVER_URL: "https://monitor.quangdel.com",
         USB_VID_PID: "3787:8297",
         AUDIO_MONITOR_PRIORITY: [MONITOR_CENTER, MONITOR_LEFT, MONITOR_RIGHT],
         MONITOR_SPEAKER_MAP: {
@@ -23,7 +23,7 @@ export const COMPUTER_CONFIG = {
     },
     "huy.pham@Dell-Laptop": {
         COMPUTER_NAME: DellLaptop,
-        CONTROL_SERVER_URL: "http://pqhuy.ddns.net:10555",
+        CONTROL_SERVER_URL: "https://monitor.quangdel.com",
         USB_VID_PID: "3787:8297",
         AUDIO_MONITOR_PRIORITY: [MONITOR_CENTER, MONITOR_RIGHT],
         MONITOR_SPEAKER_MAP: {
@@ -39,7 +39,7 @@ export const COMPUTER_CONFIG = {
     },
     "pqhuy@3c22fbe466a9": {
         COMPUTER_NAME: MacbookPro,
-        CONTROL_SERVER_URL: "http://pqhuy.ddns.net:10555",
+        CONTROL_SERVER_URL: "https://monitor.quangdel.com",
         USB_VID_PID: "3787:8297",
         AUDIO_MONITOR_PRIORITY: [MONITOR_CENTER, MONITOR_LEFT],
         MONITOR_SPEAKER_MAP: {
