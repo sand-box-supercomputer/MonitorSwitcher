@@ -54,6 +54,7 @@ export const COMPUTER_CONFIG = {
         },
     },
 }
+COMPUTER_CONFIG["Sandbox@DESKTOP-BADROU1"] = COMPUTER_CONFIG["Huy Pham@SuperComputer"];
 
 export function getComputerName(id) {
     return COMPUTER_CONFIG[id]?.COMPUTER_NAME;
