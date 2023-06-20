@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Slider, Button } from 'antd';
 
-let lastOnVolumeChange = performance.now();
+let lastOnVolumeChange = new Date();
 
 export default function VolumeSelector({
     volumeValue,
@@ -35,9 +35,9 @@ export default function VolumeSelector({
                 value={volume}
                 onChange={(value) => {
                     setIsDragging(true);
-                    if (performance.now() - lastOnVolumeChange > 100) {
+                    if (new Date() - lastOnVolumeChange > 200) {
                         onVolumeChange(value);
-                        lastOnVolumeChange = performance.now();
+                        lastOnVolumeChange = new Date();
                     }
                     setVolume(value)
                 }}
